@@ -1,0 +1,61 @@
+{
+  "name": "egg-view-nunjucks-require",
+  "version": "1.0.0",
+  "description": "let nunjucks support require tag",
+  "eggPlugin": {
+    "name": "nunjucksRequire",
+    "dep": [
+      "nunjucks"
+    ]
+  },
+  "keywords": [
+    "egg",
+    "eggPlugin",
+    "egg-plugin"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "autod": "^3.0.0",
+    "autod-egg": "^1.0.0",
+    "egg": "^2.0.0",
+    "egg-bin": "^4.3.0",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.13.0",
+    "egg-subapp": "^1.1.0",
+    "egg-view-nunjucks": "^2.1.4",
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^5.1.0",
+    "webstorm-disable-index": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "lint-local": "eslint . --fix",
+    "ci": "egg-bin pkgfiles --check && npm run lint && npm run cov",
+    "pkgfiles": "egg-bin pkgfiles",
+    "autod": "autod"
+  },
+  "files": [
+    "config",
+    "app.js",
+    "lib"
+  ],
+  "ci": {
+    "version": "8, 9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yongbo000/egg-view-nunjucks-require.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yongbo000/egg-view-nunjucks-require/issues"
+  },
+  "homepage": "https://github.com/yongbo000/egg-view-nunjucks-require#readme",
+  "author": "jambo",
+  "license": "MIT"
+}

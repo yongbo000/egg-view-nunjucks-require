@@ -1,0 +1,32 @@
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const RequireExtension = require('./lib/requireTag');
+
+module.exports = app => {
+  let assetsMapJson = {};
+  const assetsMapPath = path.join(app.baseDir, 'config', 'map.json');
+  if (fs.existsSync(assetsMapPath)) {
+    assetsMapJson = require(assetsMapPath);
+  }
+
+  const assetsUrl = (app.config.assetsUrl || '').replace(/\/$/, '');
+  const resolve = (context, path) => {
+    const { _subApp } = context.ctx;
+    if (_subApp) {
+      // assets/a.js => {assetsUrl}/{subAppName}_assets_a.js
+      path = `${_subApp}_${path.replace(/\//g, '_')}`;
+    } else {
+      // assets/a.js => {assetsUrl}/assets_a.js
+      path = `${path.replace(/\//g, '_')}`;
+    }
+    return app.config.env === 'local' ? `/${path}` : `${assetsUrl}/${assetsMapJson[path]}`;
+  };
+
+  // 添加require扩展
+  app.nunjucks.addExtension('RequireExtension', new RequireExtension({
+    resolve: app.config.nunjucksRequire.resolve || resolve,
+    run: app.config.nunjucksRequire.run || null,
+  }));
+};
