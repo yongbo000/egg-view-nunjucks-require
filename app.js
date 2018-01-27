@@ -13,10 +13,10 @@ module.exports = app => {
 
   const assetsUrl = (app.config.assetsUrl || '').replace(/\/$/, '');
   const resolve = (context, path) => {
-    const { _subApp } = context.ctx;
-    if (_subApp) {
+    const { _subAppName } = context.ctx;
+    if (_subAppName) {
       // assets/a.js => {assetsUrl}/{subAppName}_assets_a.js
-      path = `${_subApp}_${path.replace(/\//g, '_')}`;
+      path = `${_subAppName}_${path.replace(/\//g, '_')}`;
     } else {
       // assets/a.js => {assetsUrl}/assets_a.js
       path = `${path.replace(/\//g, '_')}`;
