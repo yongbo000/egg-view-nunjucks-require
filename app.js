@@ -23,7 +23,7 @@ module.exports = app => {
     }
     const getHost = () => {
       if (app.config.env === 'local') {
-        return app.config.staticlocal && app.config.staticlocal.assertServer || '';
+        return app.config.staticlocal && app.config.staticlocal.staticServer || '';
       }
       return assetsUrl;
     };

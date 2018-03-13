@@ -22,6 +22,16 @@ describe('test/view-nunjucks-require.test.js', () => {
         .expect('<html>\n  <head>\n    <link charset="utf-8" rel="stylesheet" type="text/css" href="/assets_index.css"/>\n  </head>\n  <body>\n    <script type="text/javascript" src="/assets_index.js"></script>\n  </body>\n</html>')
         .expect(200);
     });
+
+    it('view script url should render ok', () => {
+      app.config.staticlocal = {
+        staticServer: 'http://127.0.0.1:1234',
+      };
+      return app.httpRequest()
+        .get('/')
+        .expect('<html>\n  <head>\n    <link charset="utf-8" rel="stylesheet" type="text/css" href="http://127.0.0.1:1234/assets_index.css"/>\n  </head>\n  <body>\n    <script type="text/javascript" src="http://127.0.0.1:1234/assets_index.js"></script>\n  </body>\n</html>')
+        .expect(200);
+    });
   });
 
   describe('prod env', () => {
