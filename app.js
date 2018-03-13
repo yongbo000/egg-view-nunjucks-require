@@ -21,7 +21,13 @@ module.exports = app => {
       // assets/a.js => {assetsUrl}/assets_a.js
       path = `${path.replace(/\//g, '_')}`;
     }
-    return app.config.env === 'local' ? `/${path}` : `${assetsUrl}/${assetsMapJson[path]}`;
+    const getHost = () => {
+      if (app.config.env === 'local') {
+        return app.config.staticlocal && app.config.staticlocal.assertServer || '';
+      }
+      return assetsUrl;
+    };
+    return app.config.env === 'local' ? `${getHost()}/${path}` : `${getHost()}/${assetsMapJson[path]}`;
   };
 
   // 添加require扩展
